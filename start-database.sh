@@ -9,7 +9,7 @@
 
 # On Linux and macOS you can run this script directly - `./start-database.sh`
 
-DB_CONTAINER_NAME="C:\Users\renat\Documents\Projetos\FullStack\dev-bridge-postgres"
+DB_CONTAINER_NAME="dev-bridge-dev"
 
 if ! [ -x "$(command -v docker)" ]; then
   echo -e "Docker is not installed. Please install docker and try again.\nDocker install guide: https://docs.docker.com/engine/install/"
