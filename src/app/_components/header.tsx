@@ -1,13 +1,23 @@
-import React from "react";
-import { getServerAuthSession } from "~/server/auth";
+import Link from "next/link";
+import { buttonVariants } from "~/components/ui/button";
+import AuthButton from "./auth-btn";
 
 export default function Header() {
-  const session = getServerAuthSession();
   return (
-    <header className="border py-8">
+    <header className="flex items-center justify-between">
       <picture>Logo</picture>
 
-      <nav></nav>
+      <nav className="flex items-center gap-5">
+        <Link href="#" className={buttonVariants({ variant: "link" })}>
+          Discover
+        </Link>
+
+        <Link href="#" className={buttonVariants({ variant: "link" })}>
+          Your Projects
+        </Link>
+
+        <AuthButton />
+      </nav>
     </header>
   );
 }

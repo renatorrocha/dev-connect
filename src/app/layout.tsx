@@ -17,10 +17,19 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
-      <body className="bg-background mx-auto flex min-h-screen max-w-7xl flex-col gap-4 overflow-x-hidden font-sans antialiased">
+      <body className="bg-background min-h-screen font-sans antialiased">
         <TRPCReactProvider>
-          <Header />
-          {children}
+          <header className="flex flex-col items-center border-b border-gray-200 p-5 shadow-sm">
+            <div className="w-full max-w-7xl">
+              <Header />
+            </div>
+          </header>
+
+          <main className="flex flex-col items-center">
+            <div className="relative z-10 mt-5 w-full max-w-6xl">
+              {children}
+            </div>
+          </main>
         </TRPCReactProvider>
       </body>
     </html>
