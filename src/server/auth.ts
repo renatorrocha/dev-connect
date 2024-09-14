@@ -20,6 +20,7 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
+      username: string;
       // ...other properties
       // role: UserRole;
     } & DefaultSession["user"];
@@ -38,20 +39,45 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session: ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-      },
-    }),
+    jwt: async ({ token, profile, user }) => {
+      if (user) token.user = user;
+      if (profile) token.profile = profile;
+
+      return token;
+    },
+    session: async ({ session, user, token }) => {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: user?.id,
+          username: (token.profile as { login?: string })?.login,
+        },
+      };
+    },
   },
   adapter: PrismaAdapter(db) as Adapter,
+  pages: {
+    signIn: "/",
+    signOut: "/",
+  },
+  session: { strategy: "jwt" },
+  secret: env.NEXTAUTH_SECRET,
   providers: [
     Github({
       clientId: env.GITHUB_CLIENT_ID,
       clientSecret: env.GITHUB_CLIENT_SECRET,
+      // profile(profile) {
+      //   return {
+      //     id: profile.id.toString(),
+      //     name: profile.name || profile.login,
+      //     email: profile.email,
+      //     image: profile.avatar_url,
+      //     username: profile.login,
+      //   } as NextAuthUserWithStringId;
+      // },
     }),
+
     /**
      * ...add more providers here.
      *
