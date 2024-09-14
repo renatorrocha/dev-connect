@@ -22,19 +22,17 @@ export const projectRouter = createTRPCRouter({
   }),
 
   getRepos: publicProcedure
-    .input(z.object({ username: z.string() }))
+    .input(z.object({ username: z.string(), projectName: z.string() }))
     .query(async ({ input }) => {
-      const { username } = input;
-      console.log(username);
+      const { username, projectName } = input;
       try {
         const response = await axios.get(
-          `https://api.github.com/users/${username}/repos`,
+          `https://api.github.com/repos/${username}/${projectName}`,
         );
 
-        // create type
         return response.data as GetReposRequest;
       } catch (error) {
-        throw new Error("Failed to fetch GitHub repos");
+        throw new Error("Failed to fetch GitHub repo");
       }
     }),
 
