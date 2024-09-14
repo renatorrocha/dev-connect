@@ -4,7 +4,7 @@ import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 
 import { TRPCReactProvider } from "~/trpc/react";
-import Header from "./_components/header";
+import Header from "../components/header";
 
 export const metadata: Metadata = {
   title: "Dev Bridge",
@@ -17,7 +17,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
-      <body className="bg-background min-h-screen font-sans antialiased">
+      <body className="min-h-screen bg-background font-sans antialiased">
         <TRPCReactProvider>
           <header className="flex flex-col items-center border-b border-gray-200 p-5 shadow-sm">
             <div className="w-full max-w-7xl">
@@ -26,7 +26,7 @@ export default function RootLayout({
           </header>
 
           <main className="flex flex-col items-center">
-            <div className="relative z-10 mt-5 w-full max-w-6xl">
+            <div className="relative z-10 mt-5 w-full max-w-7xl px-6">
               {children}
             </div>
           </main>
