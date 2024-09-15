@@ -10,18 +10,18 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Project {0
-    id             String   @id @default(cuid())
-    name           String
-    description    String
-    readme         String
+model Project {
+    id              String   @id @default(cuid())
+    name            String
+    description     String
+    readme          String
     // tags           String[]
-    repositoryLink String
-    createdAt      DateTime @default(now())
-    updatedAt      DateTime @updatedAt
+    repositoryLink  String
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime @updatedAt
+    createdByUserId String
 
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
+    createdBy User @relation(fields: [createdByUserId], references: [id])
 
     @@index([name])
 }
