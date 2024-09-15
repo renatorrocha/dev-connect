@@ -1,3 +1,4 @@
+import { z } from "zod";
 import { ProjectSchema } from "~/lib/schemas/project-schema";
 import {
   createTRPCRouter,
@@ -11,6 +12,18 @@ export const projectRouter = createTRPCRouter({
 
     return projects ?? null;
   }),
+
+  getAllProjectsByUserId: protectedProcedure
+    .input(z.object({ userId: z.string().cuid() }))
+    .query(async ({ ctx, input }) => {
+      const projectsByUserId = await ctx.db.project.findMany({
+        where: {
+          createdByUserId: input.userId,
+        },
+      });
+
+      return projectsByUserId ?? null;
+    }),
 
   create: protectedProcedure
     .input(ProjectSchema)
