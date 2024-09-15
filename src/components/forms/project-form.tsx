@@ -32,6 +32,7 @@ export default function ProjectForm({ mutationFn, isPending }: IProjectForm) {
       createdByUserId: session?.data?.user.id,
     },
   });
+
   form.setValue("createdByUserId", session?.data?.user.id);
 
   async function onSubmit(data: IProjectSchema) {
