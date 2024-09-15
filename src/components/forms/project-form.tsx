@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -10,12 +12,16 @@ import {
   type IProjectSchema,
   ProjectSchema,
 } from "~/lib/schemas/project-schema";
+import { useSession } from "next-auth/react";
+import { Loader2 } from "lucide-react";
 
 interface IProjectForm {
   mutationFn: (data: IProjectSchema) => void;
+  isPending: boolean;
 }
 
-export default function ProjectForm({ mutationFn }: IProjectForm) {
+export default function ProjectForm({ mutationFn, isPending }: IProjectForm) {
+  const session = useSession();
   const form = useForm({
     resolver: zodResolver(ProjectSchema),
     defaultValues: {
@@ -23,11 +29,14 @@ export default function ProjectForm({ mutationFn }: IProjectForm) {
       description: "",
       repositoryLink: "",
       readme: "",
+      createdByUserId: session?.data?.user.id,
     },
   });
+  form.setValue("createdByUserId", session?.data?.user.id);
 
   async function onSubmit(data: IProjectSchema) {
     mutationFn(data);
+    console.log(data);
   }
 
   return (
@@ -76,7 +85,16 @@ export default function ProjectForm({ mutationFn }: IProjectForm) {
             Cancel
           </Link>
 
-          <Button type="submit">Create Project</Button>
+          <Button type="submit" disabled={isPending} className="items-center">
+            {isPending ? (
+              <>
+                <Loader2 className="mr-2 size-4 animate-spin" />
+                <p>Creating...</p>
+              </>
+            ) : (
+              <p>Create Project</p>
+            )}
+          </Button>
         </footer>
       </form>
     </Form>
