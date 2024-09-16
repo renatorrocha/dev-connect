@@ -20,6 +20,7 @@ export const projectRouter = createTRPCRouter({
         where: {
           createdByUserId: input.userId,
         },
+        orderBy: { createdAt: "desc" },
       });
 
       return projectsByUserId ?? null;
