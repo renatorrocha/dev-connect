@@ -21,7 +21,7 @@ interface IProjectForm {
 }
 
 export default function ProjectForm({ mutationFn, isPending }: IProjectForm) {
-  const session = useSession();
+  const { data: userData } = useSession();
   const form = useForm({
     resolver: zodResolver(ProjectSchema),
     defaultValues: {
@@ -29,11 +29,9 @@ export default function ProjectForm({ mutationFn, isPending }: IProjectForm) {
       description: "",
       repositoryLink: "",
       readme: "",
-      createdByUserId: session?.data?.user.id,
+      createdByUserId: userData?.user.id,
     },
   });
-
-  form.setValue("createdByUserId", session?.data?.user.id);
 
   async function onSubmit(data: IProjectSchema) {
     mutationFn(data);
