@@ -19,7 +19,7 @@ declare module "next-auth" {
     } & DefaultSession["user"];
   }
 }
-
+// todo: add username to the user obj
 export const authOptions: NextAuthOptions = {
   callbacks: {
     session: async ({ session, user }) => {

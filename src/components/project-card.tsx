@@ -19,7 +19,7 @@ export default function ProjectCard({ project }: { project: Project }) {
 
   return (
     <Card key={project.id}>
-      {/* //todo: implementar foto do projeto  */}
+      {/* //todo: add project img  */}
       {/* <CardContent className="p-0">
       <img
         src="/placeholder.svg"
