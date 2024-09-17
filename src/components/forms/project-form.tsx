@@ -38,7 +38,6 @@ export default function ProjectForm({
 
   async function onSubmit(data: IProjectSchema) {
     mutationFn(data);
-    console.log(data);
   }
 
   return (
@@ -70,6 +69,7 @@ export default function ProjectForm({
           placeholder="Repository link"
         />
 
+        {/* //todo: add techs tags */}
         <CustomFormField
           fieldType={FormFieldTypes.textArea}
           control={form.control}

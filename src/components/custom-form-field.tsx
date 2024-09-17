@@ -55,7 +55,7 @@ function RenderField({
             {...field}
             defaultValue={defaultValue}
             placeholder={placeholder}
-            className="h-11 rounded-md border bg-background shadow-md placeholder:border-zinc-400 placeholder:text-zinc-500"
+            className="h-64 rounded-md border bg-background shadow-md placeholder:border-zinc-400 placeholder:text-zinc-500"
           />
         </FormControl>
       );
