@@ -13,7 +13,19 @@ export const projectRouter = createTRPCRouter({
     return projects ?? null;
   }),
 
-  getAllProjectsByUserId: protectedProcedure
+  getById: publicProcedure
+    .input(z.object({ projectId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const project = await ctx.db.project.findUnique({
+        where: {
+          id: input.projectId,
+        },
+      });
+
+      return project ?? null;
+    }),
+
+  getAllByUserId: protectedProcedure
     .input(z.object({ userId: z.string().cuid() }))
     .query(async ({ ctx, input }) => {
       const projectsByUserId = await ctx.db.project.findMany({

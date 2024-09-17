@@ -13,7 +13,7 @@ export default function NewProject() {
   const apiContext = api.useContext();
   const { mutate: createProject, isPending } = api.project.create.useMutation({
     onSuccess: async () => {
-      await apiContext.project.getAllProjectsByUserId.invalidate();
+      await apiContext.project.getAllByUserId.invalidate();
       router.push("/your-projects");
     },
   });
