@@ -9,10 +9,10 @@ import {
 import { CalendarDaysIcon } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import type { Project } from "@prisma/client";
-import Link from "next/link";
 import { buttonVariants } from "./ui/button";
+import Link from 'next/link';
 
-export default function ProjectCard({ project }: { project: Project }) {
+export default function PreviewProjectCard({ project }: { project: Project }) {
   const createdDateRelativeToNow = formatDistanceToNow(project.createdAt, {
     addSuffix: true,
   });
@@ -37,7 +37,7 @@ export default function ProjectCard({ project }: { project: Project }) {
 
       <CardFooter className="flex items-center justify-between p-4">
         <Link
-          href={`/projects/${project.id}`}
+          href={`/your-projects/${project.id}`}
           className={buttonVariants()}
           prefetch={false}
         >
