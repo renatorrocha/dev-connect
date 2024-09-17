@@ -12,16 +12,19 @@ import {
   type IProjectSchema,
   ProjectSchema,
 } from "~/lib/schemas/project-schema";
-import { useSession } from "next-auth/react";
 import { Loader2 } from "lucide-react";
 
 interface IProjectForm {
   mutationFn: (data: IProjectSchema) => void;
   isPending: boolean;
+  userId: string;
 }
 
-export default function ProjectForm({ mutationFn, isPending }: IProjectForm) {
-  const session = useSession();
+export default function ProjectForm({
+  mutationFn,
+  isPending,
+  userId,
+}: IProjectForm) {
   const form = useForm({
     resolver: zodResolver(ProjectSchema),
     defaultValues: {
@@ -29,11 +32,9 @@ export default function ProjectForm({ mutationFn, isPending }: IProjectForm) {
       description: "",
       repositoryLink: "",
       readme: "",
-      createdByUserId: session?.data?.user.id,
+      createdByUserId: userId,
     },
   });
-
-  form.setValue("createdByUserId", session?.data?.user.id);
 
   async function onSubmit(data: IProjectSchema) {
     mutationFn(data);
