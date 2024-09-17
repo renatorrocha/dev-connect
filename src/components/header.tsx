@@ -8,10 +8,10 @@ export default async function Header() {
 
   return (
     <header className="flex items-center justify-between">
-      <picture>Logo</picture>
+      <Link href={"/"}>Logo</Link>
 
       <nav className="flex items-center gap-5">
-        <Link href="/" className={buttonVariants({ variant: "link" })}>
+        <Link href="/discover" className={buttonVariants({ variant: "link" })}>
           Discover
         </Link>
 
