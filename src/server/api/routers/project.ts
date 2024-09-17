@@ -16,7 +16,7 @@ export const projectRouter = createTRPCRouter({
   getById: publicProcedure
     .input(z.object({ projectId: z.string() }))
     .query(async ({ ctx, input }) => {
-      const project = await ctx.db.project.findUnique({
+      const project = await ctx.db.project.findUniqueOrThrow({
         where: {
           id: input.projectId,
         },
