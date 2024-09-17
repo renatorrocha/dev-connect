@@ -5,13 +5,13 @@ import React from "react";
 import { buttonVariants } from "~/components/ui/button";
 import Link from "next/link";
 import { api } from "~/trpc/react";
-import ProjectCard from "~/components/project-card";
+import PreviewProjectCard from "~/components/preview-project-card";
 import { Loader2 } from "lucide-react";
 
 export default function YourProjects() {
   const { data } = useSession();
   const { data: projectsArray, isLoading } =
-    api.project.getAllProjectsByUserId.useQuery({
+    api.project.getAllByUserId.useQuery({
       userId: data?.user.id ?? "",
     });
 
@@ -34,7 +34,7 @@ export default function YourProjects() {
       ) : (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projectsArray?.map((project) => (
-            <ProjectCard project={project} key={project.id} />
+            <PreviewProjectCard project={project} key={project.id} />
           ))}
         </div>
       )}
