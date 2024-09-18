@@ -6,6 +6,7 @@ export const ProjectSchema = z.object({
   description: z.string().min(1, "Description is required."),
   readme: z.string().min(1, "Readme is required."),
   repositoryLink: z.string().url(),
+  image: z.instanceof(File).optional(),
   createdByUserId: z.string().cuid(),
 });
 

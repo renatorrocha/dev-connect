@@ -15,6 +15,7 @@ model Project {
     name            String
     description     String
     readme          String
+    imageUrl        String?
     // tags           String[]
     repositoryLink  String
     createdAt       DateTime @default(now())

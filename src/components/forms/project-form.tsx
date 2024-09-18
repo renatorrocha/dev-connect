@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import React from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CustomFormField from "~/components/custom-form-field";
 import { Button, buttonVariants } from "~/components/ui/button";
@@ -13,6 +13,8 @@ import {
   ProjectSchema,
 } from "~/lib/schemas/project-schema";
 import { Loader2 } from "lucide-react";
+import { api } from "~/trpc/react";
+import { uploadImage } from "~/server/upload";
 
 interface IProjectForm {
   mutationFn: (data: IProjectSchema) => void;
@@ -33,11 +35,19 @@ export default function ProjectForm({
       repositoryLink: "",
       readme: "",
       createdByUserId: userId,
+      image: null,
     },
   });
 
+  console.log(form.formState.errors);
+
   async function onSubmit(data: IProjectSchema) {
-    mutationFn(data);
+    if (data.image) {
+      const imageUrl = await uploadImage(data.image);
+      // data.imageUrl = imageUrl;
+      console.log(imageUrl);
+    }
+    // mutationFn(data);
   }
 
   return (
@@ -67,6 +77,23 @@ export default function ProjectForm({
           name="repositoryLink"
           label="Link to Repository"
           placeholder="Repository link"
+        />
+
+        <Controller
+          name="image"
+          control={form.control}
+          render={({ field: { onChange } }) => (
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                if (e.target.files && e.target.files.length > 0) {
+                  onChange(e.target.files[0]); // Passa o arquivo para o react-hook-form
+                }
+              }}
+              className="rounded-md border p-2"
+            />
+          )}
         />
 
         {/* //todo: add techs tags */}

@@ -5,6 +5,7 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
+import { api } from "~/trpc/server";
 
 export const projectRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
@@ -43,6 +44,7 @@ export const projectRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const { createdByUserId, description, name, readme, repositoryLink } =
         input;
+
       return ctx.db.project.create({
         data: {
           name,
