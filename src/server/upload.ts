@@ -3,7 +3,7 @@ import { supabase } from "./bucket";
 export const uploadImage = async (file: Express.Multer.File) => {
   const { data, error } = await supabase.storage
     .from("dev-bridge-bucket")
-    .upload(`images/projects/${file.originalname}`, file.buffer, {
+    .upload(`projects/${file.originalname}`, file.buffer, {
       contentType: file.mimetype,
       upsert: true,
     });
