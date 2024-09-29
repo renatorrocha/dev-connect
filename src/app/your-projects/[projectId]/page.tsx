@@ -11,8 +11,9 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { buttonVariants } from "~/components/ui/button";
-import { ExternalLink, Loader2 } from "lucide-react";
+import { CodeIcon, GitBranchIcon, Loader2 } from "lucide-react";
 import Link from "next/link";
+import { Badge } from "~/components/ui/badge";
 
 export default function yourProjectId({
   params: { projectId },
@@ -41,38 +42,51 @@ export default function yourProjectId({
       </div>
     );
   }
-
+  console.log(project);
   return (
     project && (
       <>
         <Card className="mb-8">
-          <CardHeader className="flex flex-row items-center justify-between">
+          <CardHeader className="flex flex-col space-y-4 sm:flex-row sm:items-start sm:justify-between sm:space-y-0">
             <div>
-              <CardTitle className="text-lg text-primary">
-                {project?.name}
+              <CardTitle className="text-2xl font-bold capitalize text-primary">
+                {project.name}
               </CardTitle>
-              <CardDescription>{project?.description}</CardDescription>
+              <CardDescription className="mt-2">
+                {project.description}
+              </CardDescription>
             </div>
             <Link
-              href={project?.repositoryLink}
+              href={project.repositoryLink}
               target="_blank"
               rel="noopener noreferrer"
-              className={buttonVariants()}
+              className={buttonVariants({ size: "sm" })}
             >
-              View Project <ExternalLink className="ml-2 size-4" />
+              <GitBranchIcon className="mr-2 h-4 w-4" />
+              View Repository
             </Link>
           </CardHeader>
         </Card>
 
         <Card>
           <CardHeader className="border-b">
-            <CardTitle className="text-primary">README</CardTitle>
+            <CardTitle className="flex w-full items-center justify-between">
+              <p className="text-xl font-semibold text-primary">Readme</p>
+
+              <div className="gap-2">
+                <Badge variant="secondary" className="lowercase">
+                  <CodeIcon className="mr-2 h-3 w-3" />
+                  {project.techStack}
+                </Badge>
+              </div>
+            </CardTitle>
           </CardHeader>
-          <CardContent>
+
+          <CardContent className="p-2">
             <div className="max-w-none">
               <MarkdownPreview
-                source={project?.readme}
-                style={{ padding: "4rem" }}
+                source={project.readme}
+                style={{ padding: "2rem" }}
                 rehypePlugins={rehypePlugins}
                 wrapperElement={{
                   "data-color-mode": "light",
