@@ -61,13 +61,15 @@ export default function ProjectForm({
           />
         </div>
 
-        <CustomFormField
-          fieldType={FormFieldTypes.input}
-          control={form.control}
-          name="repositoryLink"
-          label="Link to Repository"
-          placeholder="Repository link"
-        />
+        <div>
+          <CustomFormField
+            fieldType={FormFieldTypes.input}
+            control={form.control}
+            name="repositoryLink"
+            label="Link to Repository"
+            placeholder="Repository link"
+          />
+        </div>
 
         {/* //todo: add techs tags */}
         <CustomFormField
