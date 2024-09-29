@@ -14,6 +14,7 @@ import {
 } from "~/lib/schemas/project-schema";
 import { Loader2 } from "lucide-react";
 import { SelectItem } from "../ui/select";
+import { TECHSTACKS } from "~/lib/constants";
 
 interface IProjectForm {
   mutationFn: (data: IProjectSchema) => void;
@@ -33,20 +34,14 @@ export default function ProjectForm({
       description: "",
       repositoryLink: "",
       readme: "",
-      techStack: "",
+      techStack: "" as TechStack,
       createdByUserId: userId,
     },
   });
 
-  const TechStacks = [
-    { label: "Frontend", value: "frontend" },
-    { label: "Backend", value: "backend" },
-    { label: "FullStack", value: "fullstack" },
-  ];
-
   async function onSubmit(data: IProjectSchema) {
-    // mutationFn(data);
-    console.log(data);
+    mutationFn(data);
+    // console.log(data);
   }
 
   return (
@@ -82,9 +77,9 @@ export default function ProjectForm({
             control={form.control}
             name="techStack"
             label="Tech Stack Selection"
-            placeholder="Select your preferred tech stack"
+            placeholder="Choose the tech stack"
           >
-            {TechStacks.map((techStack) => (
+            {TECHSTACKS.map((techStack) => (
               <SelectItem key={techStack.label} value={techStack.value}>
                 <div className="flex cursor-pointer items-center gap-2">
                   <p>{techStack.label}</p>
