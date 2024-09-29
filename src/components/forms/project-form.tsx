@@ -13,6 +13,7 @@ import {
   ProjectSchema,
 } from "~/lib/schemas/project-schema";
 import { Loader2 } from "lucide-react";
+import { SelectItem } from "../ui/select";
 
 interface IProjectForm {
   mutationFn: (data: IProjectSchema) => void;
@@ -32,12 +33,20 @@ export default function ProjectForm({
       description: "",
       repositoryLink: "",
       readme: "",
+      techStack: "",
       createdByUserId: userId,
     },
   });
 
+  const TechStacks = [
+    { label: "Frontend", value: "frontend" },
+    { label: "Backend", value: "backend" },
+    { label: "FullStack", value: "fullstack" },
+  ];
+
   async function onSubmit(data: IProjectSchema) {
-    mutationFn(data);
+    // mutationFn(data);
+    console.log(data);
   }
 
   return (
@@ -48,37 +57,50 @@ export default function ProjectForm({
             fieldType={FormFieldTypes.input}
             control={form.control}
             name="name"
-            label="Name"
-            placeholder="Project name"
+            label="Project Name"
+            placeholder="Enter the name of your project"
           />
 
           <CustomFormField
             fieldType={FormFieldTypes.input}
             control={form.control}
             name="description"
-            label="Description"
-            placeholder="Project Description"
+            label="Project Description"
+            placeholder="Briefly describe your project"
           />
-        </div>
 
-        <div>
           <CustomFormField
             fieldType={FormFieldTypes.input}
             control={form.control}
             name="repositoryLink"
-            label="Link to Repository"
-            placeholder="Repository link"
+            label="Repository Link"
+            placeholder="Enter the URL of the repository"
           />
+
+          <CustomFormField
+            fieldType={FormFieldTypes.select}
+            control={form.control}
+            name="techStack"
+            label="Tech Stack Selection"
+            placeholder="Select your preferred tech stack"
+          >
+            {TechStacks.map((techStack) => (
+              <SelectItem key={techStack.label} value={techStack.value}>
+                <div className="flex cursor-pointer items-center gap-2">
+                  <p>{techStack.label}</p>
+                </div>
+              </SelectItem>
+            ))}
+          </CustomFormField>
         </div>
 
-        {/* //todo: add techs tags */}
         <CustomFormField
           fieldType={FormFieldTypes.textArea}
           control={form.control}
           name="readme"
           label="Readme"
-          placeholder="Project Readme"
-          description="Accept markdown"
+          placeholder="Write your project documentation here"
+          description="* Supports markdown formatting"
         />
 
         <footer className="flex justify-center gap-4">
