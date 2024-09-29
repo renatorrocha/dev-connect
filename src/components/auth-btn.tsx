@@ -18,6 +18,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
+import { Skeleton } from "./ui/skeleton";
 
 export default function AuthButton() {
   const { data: session, status } = useSession();
@@ -71,5 +72,5 @@ export default function AuthButton() {
       </Button>
     );
 
-  return <Loader2 className="animate-spin text-primary">Loading</Loader2>;
+  return <Skeleton className="size-9 rounded-full" />;
 }
