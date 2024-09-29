@@ -10,15 +10,21 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+enum TechStack {
+    FRONTEND
+    BACKEND
+    FULLSTACK
+}
+
 model Project {
-    id              String   @id @default(cuid())
+    id              String    @id @default(cuid())
     name            String
     description     String
     readme          String
-    // tags           String[]
+    techStack       TechStack
     repositoryLink  String
-    createdAt       DateTime @default(now())
-    updatedAt       DateTime @updatedAt
+    createdAt       DateTime  @default(now())
+    updatedAt       DateTime  @updatedAt
     createdByUserId String
 
     createdBy User @relation(fields: [createdByUserId], references: [id])
