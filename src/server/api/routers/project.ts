@@ -20,6 +20,13 @@ export const projectRouter = createTRPCRouter({
         where: {
           id: input.projectId,
         },
+        include: {
+          createdBy: {
+            select: {
+              name: true,
+            },
+          },
+        },
       });
 
       return project ?? null;
