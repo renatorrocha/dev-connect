@@ -1,7 +1,7 @@
 "use client";
 
 import { signIn, signOut, useSession } from "next-auth/react";
-import { Github, LogOut, MessageSquareDot, Settings } from "lucide-react";
+import { LogOut, MessageSquareDot, Settings } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import {
@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { Skeleton } from "./ui/skeleton";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
 export default function AuthButton() {
   const { data: session, status } = useSession();
@@ -61,7 +62,7 @@ export default function AuthButton() {
         className="flex gap-2 font-semibold"
         onClick={() => signIn("github")}
       >
-        <Github className="size-4" />
+        <GitHubLogoIcon className="size-4" />
         Sign-in
       </Button>
     );

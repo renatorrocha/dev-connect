@@ -1,6 +1,7 @@
+"use client";
+
 import {
   Card,
-  // CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -12,8 +13,11 @@ import type { Project } from "@prisma/client";
 import { buttonVariants } from "./ui/button";
 import Link from "next/link";
 import { Badge } from "./ui/badge";
+import { useSession } from "next-auth/react";
 
 export default function PreviewProjectCard({ project }: { project: Project }) {
+  const { data: session } = useSession();
+  const isProjectOwner = session?.user.id == project.createdByUserId;
   const createdDateRelativeToNow = formatDistanceToNow(project.createdAt, {
     addSuffix: true,
   });
@@ -52,7 +56,11 @@ export default function PreviewProjectCard({ project }: { project: Project }) {
 
       <CardFooter className="flex items-center justify-between p-4">
         <Link
-          href={`/your-projects/${project.id}`}
+          href={
+            isProjectOwner
+              ? `/your-projects/${project.id}`
+              : `/discover/${project.id}`
+          }
           className={buttonVariants()}
           prefetch={false}
         >
