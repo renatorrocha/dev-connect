@@ -3,6 +3,7 @@ import { buttonVariants } from "~/components/ui/button";
 import AuthButton from "./auth-btn";
 import { getServerAuthSession } from "~/server/auth";
 import Image from "next/image";
+import { cn } from "~/lib/utils";
 
 export default async function Header() {
   const session = await getServerAuthSession();
@@ -28,14 +29,23 @@ export default async function Header() {
       </Link>
 
       <nav className="flex items-center gap-5">
-        <Link href="/discover" className={buttonVariants({ variant: "link" })}>
+        <Link
+          href="/discover"
+          className={cn(
+            buttonVariants({ variant: "link" }),
+            "transition-all duration-300 hover:font-bold",
+          )}
+        >
           Discover
         </Link>
 
         {session && (
           <Link
             href="/your-projects"
-            className={buttonVariants({ variant: "link" })}
+            className={cn(
+              buttonVariants({ variant: "link" }),
+              "transition-all duration-300 hover:font-bold",
+            )}
           >
             Your Projects
           </Link>
