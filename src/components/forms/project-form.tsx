@@ -13,8 +13,8 @@ import {
   ProjectSchema,
 } from "~/lib/schemas/project-schema";
 import { Loader2 } from "lucide-react";
-import { api } from "~/trpc/react";
-import { uploadImage } from "~/server/upload";
+import { SelectItem } from "../ui/select";
+import { TECHSTACKS } from "~/lib/constants";
 
 interface IProjectForm {
   mutationFn: (data: IProjectSchema) => void;
@@ -34,6 +34,7 @@ export default function ProjectForm({
       description: "",
       repositoryLink: "",
       readme: "",
+      techStack: "" as TechStack,
       createdByUserId: userId,
       image: null,
     },
@@ -42,12 +43,8 @@ export default function ProjectForm({
   console.log(form.formState.errors);
 
   async function onSubmit(data: IProjectSchema) {
-    if (data.image) {
-      const imageUrl = await uploadImage(data.image);
-      // data.imageUrl = imageUrl;
-      console.log(imageUrl);
-    }
-    // mutationFn(data);
+    mutationFn(data);
+    // console.log(data);
   }
 
   return (
@@ -58,52 +55,50 @@ export default function ProjectForm({
             fieldType={FormFieldTypes.input}
             control={form.control}
             name="name"
-            label="Name"
-            placeholder="Project name"
+            label="Project Name"
+            placeholder="Enter the name of your project"
           />
 
           <CustomFormField
             fieldType={FormFieldTypes.input}
             control={form.control}
             name="description"
-            label="Description"
-            placeholder="Project Description"
+            label="Project Description"
+            placeholder="Briefly describe your project"
           />
+
+          <CustomFormField
+            fieldType={FormFieldTypes.input}
+            control={form.control}
+            name="repositoryLink"
+            label="Repository Link"
+            placeholder="Enter the URL of the repository"
+          />
+
+          <CustomFormField
+            fieldType={FormFieldTypes.select}
+            control={form.control}
+            name="techStack"
+            label="Tech Stack Selection"
+            placeholder="Choose the tech stack"
+          >
+            {TECHSTACKS.map((techStack) => (
+              <SelectItem key={techStack.label} value={techStack.value}>
+                <div className="flex cursor-pointer items-center gap-2">
+                  <p>{techStack.label}</p>
+                </div>
+              </SelectItem>
+            ))}
+          </CustomFormField>
         </div>
 
-        <CustomFormField
-          fieldType={FormFieldTypes.input}
-          control={form.control}
-          name="repositoryLink"
-          label="Link to Repository"
-          placeholder="Repository link"
-        />
-
-        <Controller
-          name="image"
-          control={form.control}
-          render={({ field: { onChange } }) => (
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => {
-                if (e.target.files && e.target.files.length > 0) {
-                  onChange(e.target.files[0]); // Passa o arquivo para o react-hook-form
-                }
-              }}
-              className="rounded-md border p-2"
-            />
-          )}
-        />
-
-        {/* //todo: add techs tags */}
         <CustomFormField
           fieldType={FormFieldTypes.textArea}
           control={form.control}
           name="readme"
           label="Readme"
-          placeholder="Project Readme"
-          description="Accept markdown"
+          placeholder="Write your project documentation here"
+          description="* Supports markdown formatting"
         />
 
         <footer className="flex justify-center gap-4">

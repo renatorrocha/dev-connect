@@ -4,6 +4,7 @@ import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import ProjectForm from "~/components/forms/project-form";
+import { Separator } from "~/components/ui/separator";
 import { api } from "~/trpc/react";
 
 export default function NewProject() {
@@ -26,6 +27,8 @@ export default function NewProject() {
   return (
     <div>
       <h1 className="font-bold text-primary">Create a new Project</h1>
+
+      <Separator className="my-3" />
 
       <ProjectForm
         mutationFn={createProject}

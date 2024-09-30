@@ -21,6 +21,13 @@ export const projectRouter = createTRPCRouter({
         where: {
           id: input.projectId,
         },
+        include: {
+          createdBy: {
+            select: {
+              name: true,
+            },
+          },
+        },
       });
 
       return project ?? null;
@@ -42,9 +49,14 @@ export const projectRouter = createTRPCRouter({
   create: protectedProcedure
     .input(ProjectSchema)
     .mutation(async ({ ctx, input }) => {
-      const { createdByUserId, description, name, readme, repositoryLink } =
-        input;
-
+      const {
+        createdByUserId,
+        description,
+        name,
+        readme,
+        repositoryLink,
+        techStack,
+      } = input;
       return ctx.db.project.create({
         data: {
           name,
@@ -52,6 +64,7 @@ export const projectRouter = createTRPCRouter({
           repositoryLink,
           description,
           createdByUserId,
+          techStack,
         },
       });
     }),

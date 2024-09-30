@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en" className={`${GeistSans.variable}`}>
       <body className="min-h-screen bg-background font-sans antialiased">
         <TRPCReactProvider>
-          <header className="flex flex-col items-center border-b border-gray-200 p-5 shadow-sm">
+          <header className="mb-4 flex flex-col items-center border-b border-gray-200 p-5 shadow-sm">
             <div className="w-full max-w-7xl">
               <Header />
             </div>

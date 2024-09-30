@@ -12,6 +12,7 @@ import {
 import { Input } from "./ui/input";
 import { FormFieldTypes } from "~/lib/types/form-field-types";
 import { Textarea } from "./ui/textarea";
+import { Select, SelectContent, SelectTrigger, SelectValue } from "./ui/select";
 
 interface IFormField {
   control: Control<any>;
@@ -57,6 +58,24 @@ function RenderField({
             placeholder={placeholder}
             className="h-64 rounded-md border bg-background shadow-md placeholder:border-zinc-400 placeholder:text-zinc-500"
           />
+        </FormControl>
+      );
+
+    case FormFieldTypes.select:
+      return (
+        <FormControl>
+          <Select onValueChange={field.onChange} defaultValue={field.value}>
+            <FormControl>
+              <SelectTrigger className="h-11 shadow-md focus:ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                <SelectValue
+                  placeholder={placeholder}
+                  className="placeholder:text-muted-foreground"
+                />
+              </SelectTrigger>
+            </FormControl>
+
+            <SelectContent>{props.children}</SelectContent>
+          </Select>
         </FormControl>
       );
 

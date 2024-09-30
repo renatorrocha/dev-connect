@@ -15,10 +15,8 @@ export default function YourProjects() {
       userId: data?.user.id ?? "",
     });
 
-    
-
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-12 md:px-6">
+    <div className="mx-auto w-full max-w-6xl px-4 md:px-6">
       <div className="mb-8 flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-primary">Your Projects</h1>
@@ -31,6 +29,7 @@ export default function YourProjects() {
           Create Project
         </Link>
       </div>
+
       {isLoading ? (
         <Loader2 className="m-auto mt-32 size-8 animate-spin text-primary" />
       ) : (

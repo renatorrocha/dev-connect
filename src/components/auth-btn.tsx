@@ -1,13 +1,7 @@
 "use client";
 
 import { signIn, signOut, useSession } from "next-auth/react";
-import {
-  Github,
-  Loader2,
-  LogOut,
-  MessageSquareDot,
-  Settings,
-} from "lucide-react";
+import { Github, LogOut, MessageSquareDot, Settings } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import {
@@ -18,6 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
+import { Skeleton } from "./ui/skeleton";
 
 export default function AuthButton() {
   const { data: session, status } = useSession();
@@ -71,5 +66,5 @@ export default function AuthButton() {
       </Button>
     );
 
-  return <Loader2 className="animate-spin text-primary">Loading</Loader2>;
+  return <Skeleton className="size-9 rounded-full" />;
 }
