@@ -8,5 +8,5 @@ export default async function YourProjectsLayout({
 
   if (!session) redirect("/");
 
-  return <div className="container mt-6 max-w-6xl px-8">{children}</div>;
+  return <div className="container mt-10 max-w-6xl px-8">{children}</div>;
 }

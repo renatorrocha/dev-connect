@@ -16,7 +16,7 @@ export default function YourProjects() {
     });
 
   return (
-    <div className="container mt-6 max-w-6xl">
+    <div className="container max-w-6xl">
       <div className="mb-8 flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-primary">Your Projects</h1>
