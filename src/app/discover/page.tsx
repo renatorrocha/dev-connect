@@ -55,9 +55,7 @@ export default function DiscoverPage() {
       )}
 
       {projects?.length === 0 && (
-        <p className="mt-8 text-center text-gray-500">
-          No projects found matching the current filters.
-        </p>
+        <p className="mt-8 text-center text-gray-500">No projects found.</p>
       )}
     </div>
   );

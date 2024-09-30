@@ -39,6 +39,10 @@ export default function YourProjects() {
           ))}
         </div>
       )}
+
+      {projectsArray?.length === 0 && (
+        <p className="mt-8 text-center text-gray-500">No projects found.</p>
+      )}
     </div>
   );
 }
