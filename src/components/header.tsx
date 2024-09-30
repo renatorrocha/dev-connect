@@ -11,7 +11,7 @@ export default async function Header() {
     <header className="flex items-center justify-between">
       <Link
         href={"/"}
-        className="flex items-center gap-4 transition-all duration-300 hover:translate-x-2"
+        className="flex items-center gap-4 transition-all duration-300 md:hover:translate-x-2"
       >
         <Image
           src={"/logo_icon.svg"}
@@ -21,7 +21,7 @@ export default async function Header() {
           className="size-10"
         />
 
-        <p className="text-lg font-medium">
+        <p className="hidden text-lg font-medium md:block">
           Dev
           <span className="gradient-primary-secondary font-bold">.Connect</span>
         </p>
