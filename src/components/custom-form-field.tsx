@@ -44,7 +44,7 @@ function RenderField({
             {...field}
             defaultValue={defaultValue}
             placeholder={placeholder}
-            className="h-11 rounded-md border bg-background shadow-md placeholder:border-zinc-400 placeholder:text-zinc-500"
+            className="h-11 rounded-md border bg-white shadow-md placeholder:border-zinc-400 placeholder:text-zinc-500"
           />
         </FormControl>
       );
@@ -56,7 +56,7 @@ function RenderField({
             {...field}
             defaultValue={defaultValue}
             placeholder={placeholder}
-            className="h-64 rounded-md border bg-background shadow-md placeholder:border-zinc-400 placeholder:text-zinc-500"
+            className="h-64 rounded-md border bg-white shadow-md placeholder:border-zinc-400 placeholder:text-zinc-500"
           />
         </FormControl>
       );
@@ -66,7 +66,7 @@ function RenderField({
         <FormControl>
           <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>
-              <SelectTrigger className="h-11 shadow-md focus:ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+              <SelectTrigger className="h-11 bg-white shadow-md focus:ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
                 <SelectValue
                   placeholder={placeholder}
                   className="placeholder:text-muted-foreground"
