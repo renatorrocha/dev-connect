@@ -45,7 +45,7 @@ export default function PreviewProjectCard({ project }: { project: Project }) {
           <div className="gap-2">
             <Badge variant="secondary" className="lowercase">
               <CodeIcon className="mr-2 h-4 w-4" />
-              {project.techStack}
+              {project.projectType}
             </Badge>
           </div>
         </CardTitle>

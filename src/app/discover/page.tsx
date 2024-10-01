@@ -30,7 +30,7 @@ export default function DiscoverPage() {
         </div>
         <div>
           <Label htmlFor="tech-stack-filter">Filter by Tech Stack</Label>
-          <Select onValueChange={setTechStackFilter} value={techStackFilter}>
+          <Select onValueChange={setprojectTypeFilter} value={projectTypeFilter}>
             <SelectTrigger id="tech-stack-filter">
               <SelectValue placeholder="Select Tech Stack" />
             </SelectTrigger>
@@ -55,9 +55,7 @@ export default function DiscoverPage() {
       )}
 
       {projects?.length === 0 && (
-        <p className="mt-8 text-center text-gray-500">
-          No projects found matching the current filters.
-        </p>
+        <p className="mt-8 text-center text-gray-500">No projects found.</p>
       )}
     </div>
   );

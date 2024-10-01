@@ -76,7 +76,7 @@ export default function DiscoverProjectIdPage({
               <div className="gap-2">
                 <Badge variant="secondary" className="lowercase">
                   <CodeIcon className="mr-2 h-3 w-3" />
-                  {project.techStack}
+                  {project.projectType}
                 </Badge>
               </div>
             </CardTitle>

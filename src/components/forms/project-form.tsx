@@ -14,34 +14,36 @@ import {
 } from "~/lib/schemas/project-schema";
 import { Loader2 } from "lucide-react";
 import { SelectItem } from "../ui/select";
-import { TECHSTACKS } from "~/lib/constants";
+import type { Project, ProjectType } from "@prisma/client";
+import { PROJECTTYPES } from "~/lib/constants";
 
 interface IProjectForm {
   mutationFn: (data: IProjectSchema) => void;
   isPending: boolean;
+  project?: Project;
   userId: string;
 }
 
 export default function ProjectForm({
   mutationFn,
   isPending,
+  project,
   userId,
 }: IProjectForm) {
   const form = useForm({
     resolver: zodResolver(ProjectSchema),
     defaultValues: {
-      name: "",
-      description: "",
-      repositoryLink: "",
-      readme: "",
-      techStack: "" as TechStack,
+      name: project?.name ?? "",
+      description: project?.description ?? "",
+      repositoryLink: project?.repositoryLink ?? "",
+      readme: project?.readme ?? "",
+      projectType: project?.projectType ?? ("" as ProjectType),
       createdByUserId: userId,
     },
   });
 
   async function onSubmit(data: IProjectSchema) {
     mutationFn(data);
-    // console.log(data);
   }
 
   return (
@@ -75,14 +77,14 @@ export default function ProjectForm({
           <CustomFormField
             fieldType={FormFieldTypes.select}
             control={form.control}
-            name="techStack"
-            label="Tech Stack Selection"
-            placeholder="Choose the tech stack"
+            name="projectType"
+            label="Project Type Selection"
+            placeholder="Choose the Project Type"
           >
-            {TECHSTACKS.map((techStack) => (
-              <SelectItem key={techStack.label} value={techStack.value}>
+            {PROJECTTYPES.map((projectType) => (
+              <SelectItem key={projectType.label} value={projectType.value}>
                 <div className="flex cursor-pointer items-center gap-2">
-                  <p>{techStack.label}</p>
+                  <p>{projectType.label}</p>
                 </div>
               </SelectItem>
             ))}
@@ -110,10 +112,10 @@ export default function ProjectForm({
             {isPending ? (
               <>
                 <Loader2 className="mr-2 size-4 animate-spin" />
-                <p>Creating...</p>
+                <p>{project ? "Updating..." : "Creating..."}</p>
               </>
             ) : (
-              <p>Create Project</p>
+              <p>{project ? "Edit Project" : "Create Project"}</p>
             )}
           </Button>
         </footer>

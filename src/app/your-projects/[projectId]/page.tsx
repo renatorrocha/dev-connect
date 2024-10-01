@@ -42,7 +42,7 @@ export default function yourProjectId({
       </div>
     );
   }
-  console.log(project);
+
   return (
     project && (
       <>
@@ -69,9 +69,7 @@ export default function yourProjectId({
               </Link>
 
               <Link
-                href={"#"}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={`/your-projects/${project.id}/edit`}
                 className={buttonVariants({ size: "sm", variant: "secondary" })}
               >
                 <Edit className="mr-2 h-4 w-4" />
@@ -89,17 +87,17 @@ export default function yourProjectId({
               <div className="gap-2">
                 <Badge variant="secondary" className="lowercase">
                   <CodeIcon className="mr-2 h-3 w-3" />
-                  {project.techStack}
+                  {project.projectType}
                 </Badge>
               </div>
             </CardTitle>
           </CardHeader>
 
-          <CardContent className="p-2">
-            <div className="max-w-none border border-gray-100 px-4">
+          <CardContent className="p-4">
+            <div className="max-w-none border border-gray-100">
               <MarkdownPreview
                 source={project.readme}
-                style={{ padding: "2rem", borderRadius: "12px" }}
+                style={{ padding: "2rem", borderRadius: "24px" }}
                 rehypePlugins={rehypePlugins}
                 wrapperElement={{
                   "data-color-mode": "light",
