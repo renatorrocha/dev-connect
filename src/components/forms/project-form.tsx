@@ -38,6 +38,7 @@ export default function ProjectForm({
       repositoryLink: project?.repositoryLink ?? "",
       readme: project?.readme ?? "",
       projectType: project?.projectType ?? ("" as ProjectType),
+      id: project?.id ?? undefined,
       createdByUserId: userId,
     },
   });
@@ -102,7 +103,7 @@ export default function ProjectForm({
 
         <footer className="flex justify-center gap-4">
           <Link
-            href={"/your-projects"}
+            href={project ? `/your-projects/${project.id}` : "/your-projects"}
             className={buttonVariants({ variant: "secondary" })}
           >
             Cancel
