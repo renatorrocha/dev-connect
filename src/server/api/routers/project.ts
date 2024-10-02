@@ -54,7 +54,7 @@ export const projectRouter = createTRPCRouter({
         name,
         readme,
         repositoryLink,
-        techStack,
+        projectType,
       } = input;
       return ctx.db.project.create({
         data: {
@@ -63,7 +63,26 @@ export const projectRouter = createTRPCRouter({
           repositoryLink,
           description,
           createdByUserId,
-          techStack,
+          projectType,
+        },
+      });
+    }),
+
+  update: protectedProcedure
+    .input(ProjectSchema)
+    .mutation(async ({ ctx, input }) => {
+      const { description, name, readme, repositoryLink, projectType, id } =
+        input;
+
+      return ctx.db.project.update({
+        where: { id },
+
+        data: {
+          name,
+          readme,
+          description,
+          repositoryLink,
+          projectType,
         },
       });
     }),
