@@ -54,7 +54,7 @@ export const projectRouter = createTRPCRouter({
         name,
         readme,
         repositoryLink,
-        techStack,
+        projectType,
       } = input;
       return ctx.db.project.create({
         data: {
@@ -63,7 +63,38 @@ export const projectRouter = createTRPCRouter({
           repositoryLink,
           description,
           createdByUserId,
-          techStack,
+          projectType,
+        },
+      });
+    }),
+
+  delete: protectedProcedure
+    .input(
+      z.object({ projectId: z.string().cuid(), userId: z.string().cuid() }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { projectId, userId } = input;
+
+      return ctx.db.project.delete({
+        where: { id: projectId, createdByUserId: userId },
+      });
+    }),
+
+  update: protectedProcedure
+    .input(ProjectSchema)
+    .mutation(async ({ ctx, input }) => {
+      const { description, name, readme, repositoryLink, projectType, id } =
+        input;
+
+      return ctx.db.project.update({
+        where: { id },
+
+        data: {
+          name,
+          readme,
+          description,
+          repositoryLink,
+          projectType,
         },
       });
     }),

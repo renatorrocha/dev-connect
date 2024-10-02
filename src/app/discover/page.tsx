@@ -30,7 +30,7 @@ export default function DiscoverPage() {
         </div>
         <div>
           <Label htmlFor="tech-stack-filter">Filter by Tech Stack</Label>
-          <Select onValueChange={setTechStackFilter} value={techStackFilter}>
+          <Select onValueChange={setprojectTypeFilter} value={projectTypeFilter}>
             <SelectTrigger id="tech-stack-filter">
               <SelectValue placeholder="Select Tech Stack" />
             </SelectTrigger>

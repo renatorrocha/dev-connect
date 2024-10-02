@@ -1,6 +1,6 @@
 import { Code, Globe, Lightbulb } from "lucide-react";
 
-export const TECHSTACKS = [
+export const PROJECTTYPES = [
   { label: "Frontend", value: "FRONTEND" },
   { label: "Backend", value: "BACKEND" },
   { label: "FullStack", value: "FULLSTACK" },
