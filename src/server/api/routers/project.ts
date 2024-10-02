@@ -68,6 +68,18 @@ export const projectRouter = createTRPCRouter({
       });
     }),
 
+  delete: protectedProcedure
+    .input(
+      z.object({ projectId: z.string().cuid(), userId: z.string().cuid() }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { projectId, userId } = input;
+
+      return ctx.db.project.delete({
+        where: { id: projectId, createdByUserId: userId },
+      });
+    }),
+
   update: protectedProcedure
     .input(ProjectSchema)
     .mutation(async ({ ctx, input }) => {

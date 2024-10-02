@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
 import { api } from "~/trpc/react";
@@ -25,13 +26,23 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
 } from "~/components/ui/alert-dialog";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function yourProjectId({
   params: { projectId },
 }: SearchParamProps) {
   if (!projectId) return null;
+  const { data: session } = useSession();
   const rehypePlugins = [rehypeSanitize];
-
+  const apiContext = api.useContext();
+  const router = useRouter();
+  const { mutate: deleteProject, isPending } = api.project.delete.useMutation({
+    onSuccess: async () => {
+      await apiContext.project.getAllByUserId.invalidate();
+      router.push("/your-projects");
+    },
+  });
   const {
     data: project,
     isLoading,
@@ -40,7 +51,7 @@ export default function yourProjectId({
     projectId,
   });
 
-  if (isLoading) {
+  if (isLoading || !session) {
     return (
       <Loader2 className="m-auto mt-32 size-8 animate-spin text-primary" />
     );
@@ -120,12 +131,18 @@ export default function yourProjectId({
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
                         <AlertDialogAction
                           onClick={() => {
-                            // Implement delete functionality here
-                            console.log("Delete project:", project.id);
+                            deleteProject({
+                              projectId: project.id,
+                              userId: session?.user.id,
+                            });
                           }}
                           className="bg-red-600 hover:bg-red-700 focus:ring-red-600"
                         >
-                          <Trash2 className="mr-2 h-4 w-4" />
+                          {isPending ? (
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          ) : (
+                            <Trash2 className="mr-2 h-4 w-4" />
+                          )}
                           Delete
                         </AlertDialogAction>
                       </AlertDialogFooter>
