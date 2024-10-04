@@ -1,3 +1,0 @@
-- [ ] Project image file
-- [ ] Filter Project by name or / and ProjectType
-- [ ] Edit Project
