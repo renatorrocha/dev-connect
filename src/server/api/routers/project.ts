@@ -83,11 +83,18 @@ export const projectRouter = createTRPCRouter({
   update: protectedProcedure
     .input(ProjectSchema)
     .mutation(async ({ ctx, input }) => {
-      const { description, name, readme, repositoryLink, projectType, id } =
-        input;
+      const {
+        description,
+        name,
+        readme,
+        repositoryLink,
+        projectType,
+        id,
+        createdByUserId,
+      } = input;
 
       return ctx.db.project.update({
-        where: { id },
+        where: { id, createdByUserId },
 
         data: {
           name,
