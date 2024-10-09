@@ -1,12 +1,12 @@
 import { Code, Globe, Lightbulb } from "lucide-react";
 
-export const PROJECTTYPES = [
+export const PROJECT_TYPES = [
   { label: "Frontend", value: "FRONTEND" },
   { label: "Backend", value: "BACKEND" },
   { label: "FullStack", value: "FULLSTACK" },
 ];
 
-export const FEATURECARDS = [
+export const FEATURE_CARDS = [
   {
     title: "Global Network",
     description:

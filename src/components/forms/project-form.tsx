@@ -15,7 +15,7 @@ import {
 import { Loader2 } from "lucide-react";
 import { SelectItem } from "../ui/select";
 import type { Project, ProjectType } from "@prisma/client";
-import { PROJECTTYPES } from "~/lib/constants";
+import { PROJECT_TYPES } from "~/lib/constants";
 
 interface IProjectForm {
   mutationFn: (data: IProjectSchema) => void;
@@ -82,7 +82,7 @@ export default function ProjectForm({
             label="Project Type Selection"
             placeholder="Choose the Project Type"
           >
-            {PROJECTTYPES.map((projectType) => (
+            {PROJECT_TYPES.map((projectType) => (
               <SelectItem key={projectType.label} value={projectType.value}>
                 <div className="flex cursor-pointer items-center gap-2">
                   <p>{projectType.label}</p>

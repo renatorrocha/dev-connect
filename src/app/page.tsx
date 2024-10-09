@@ -2,7 +2,7 @@ import Link from "next/link";
 import FeatureCard from "~/components/feature-card";
 import SignInButton from "~/components/signin-btn";
 import { buttonVariants } from "~/components/ui/button";
-import { FEATURECARDS } from "~/lib/constants";
+import { FEATURE_CARDS } from "~/lib/constants";
 import { api, HydrateClient } from "~/trpc/server";
 
 export default async function Home() {
@@ -44,7 +44,7 @@ export default async function Home() {
               Why Choose <span className="text-primary">DevConnect</span>?
             </h2>
             <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-              {FEATURECARDS.map((feature) => (
+              {FEATURE_CARDS.map((feature) => (
                 <FeatureCard
                   key={feature.title}
                   title={feature.title}
