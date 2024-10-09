@@ -6,14 +6,26 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
-import { getServerAuthSession } from "~/server/auth";
 
 export const projectRouter = createTRPCRouter({
-  getAll: publicProcedure.query(async ({ ctx }) => {
-    const projects = await ctx.db.project.findMany();
+  getAll: publicProcedure
+    .input(
+      z.object({
+        name: z.string().optional(),
+        projectType: z.enum(["FRONTEND", "BACKEND", "FULLSTACK"]).optional(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const { name, projectType } = input;
+      const projects = await ctx.db.project.findMany({
+        where: {
+          ...(name && { name: { contains: name, mode: "insensitive" } }),
+          ...(projectType && { projectType }),
+        },
+      });
 
-    return projects ?? null;
-  }),
+      return projects ?? [];
+    }),
 
   getById: publicProcedure
     .input(
@@ -97,7 +109,7 @@ export const projectRouter = createTRPCRouter({
         });
 
       return ctx.db.project.delete({
-        where: { id: projectId, createdByUserId: userId },
+        where: { id: projectId },
       });
     }),
 
@@ -115,7 +127,7 @@ export const projectRouter = createTRPCRouter({
       } = input;
 
       return ctx.db.project.update({
-        where: { id, createdByUserId },
+        where: { id },
 
         data: {
           name,
