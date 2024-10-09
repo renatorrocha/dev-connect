@@ -16,7 +16,6 @@ This project is built using the following technologies:
 - [Next.js](https://nextjs.org)
 - [NextAuth.js](https://next-auth.js.org)
 - [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
 - [Tailwind CSS](https://tailwindcss.com)
 - [tRPC](https://trpc.io)
 
@@ -42,7 +41,7 @@ To get started with Dev Connect, follow these steps:
 2. Install the dependencies:
 
    ```bash
-   npm install
+   pnpm install
    ```
 
 3. Set up your environment variables:
@@ -52,7 +51,7 @@ To get started with Dev Connect, follow these steps:
 4. Run the development server:
 
    ```bash
-   npm run dev
+   pnpm run dev
    ```
 
 5. Open your browser and navigate to `http://localhost:3000`.

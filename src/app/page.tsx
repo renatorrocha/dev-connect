@@ -6,7 +6,7 @@ import { FEATURE_CARDS } from "~/lib/constants";
 import { api, HydrateClient } from "~/trpc/server";
 
 export default async function Home() {
-  void api.project.getAll.prefetch();
+  void api.project.getAll.prefetch({});
 
   return (
     <HydrateClient>
