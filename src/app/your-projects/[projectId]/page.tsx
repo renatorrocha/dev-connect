@@ -28,18 +28,20 @@ import {
 } from "~/components/ui/alert-dialog";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { toast } from "sonner";
 
 export default function yourProjectId({
   params: { projectId },
 }: SearchParamProps) {
-  if (!projectId) return null;
   const { data: session } = useSession();
+  if (!projectId) return null;
   const rehypePlugins = [rehypeSanitize];
   const apiContext = api.useContext();
   const router = useRouter();
   const { mutate: deleteProject, isPending } = api.project.delete.useMutation({
     onSuccess: async () => {
       await apiContext.project.getAllByUserId.invalidate();
+      toast.warning("Project Deleted !");
       router.push("/your-projects");
     },
   });
@@ -49,6 +51,7 @@ export default function yourProjectId({
     isError,
   } = api.project.getById.useQuery({
     projectId,
+    userId: session?.user.id,
   });
 
   if (isLoading || !session) {

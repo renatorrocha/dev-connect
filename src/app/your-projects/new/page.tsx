@@ -3,6 +3,7 @@
 import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import ProjectForm from "~/components/forms/project-form";
 import { Separator } from "~/components/ui/separator";
 import { api } from "~/trpc/react";
@@ -15,6 +16,7 @@ export default function NewProject() {
   const { mutate: createProject, isPending } = api.project.create.useMutation({
     onSuccess: async () => {
       await apiContext.project.getAllByUserId.invalidate();
+      toast.success("Project Created !");
       router.push("/your-projects");
     },
   });

@@ -5,6 +5,7 @@ import { type Metadata } from "next";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import Header from "../components/header";
+import { Toaster } from "~/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Dev Connect",
@@ -48,6 +49,7 @@ export default function RootLayout({
           </header>
 
           <main className="flex flex-col items-center">{children}</main>
+          <Toaster richColors theme="light" />
         </TRPCReactProvider>
       </body>
     </html>

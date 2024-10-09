@@ -4,6 +4,7 @@ import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { toast } from "sonner";
 import ProjectForm from "~/components/forms/project-form";
 import { Separator } from "~/components/ui/separator";
 import { api } from "~/trpc/react";
@@ -21,6 +22,7 @@ export default function EditProjectPage({
     onSuccess: async () => {
       await apiContext.project.getAllByUserId.invalidate();
       await apiContext.project.getById.invalidate();
+      toast.info("Project Edited !");
       router.push(`/your-projects/${projectId}`);
     },
   });
