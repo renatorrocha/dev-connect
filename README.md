@@ -67,9 +67,9 @@ For deployment, you can follow the guides for:
 
 - [ ] Add project image
 - [ ] Filter projects by name and/or TechStack
-- [ ] Add toast infos (such as success or error)
+- [X] Add toast infos (such as success or error)
 - [x] Edit Project
 
 ## Bugs
 
-- [ ] Fix the issue where users can modify projects that aren't theirs
+- [X] Fix the issue where users can modify projects that aren't theirs
