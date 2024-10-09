@@ -1,3 +1,4 @@
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { ProjectSchema } from "~/lib/schemas/project-schema";
 import {
@@ -5,6 +6,7 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
+import { getServerAuthSession } from "~/server/auth";
 
 export const projectRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
@@ -14,11 +16,14 @@ export const projectRouter = createTRPCRouter({
   }),
 
   getById: publicProcedure
-    .input(z.object({ projectId: z.string() }))
+    .input(
+      z.object({ projectId: z.string(), userId: z.string().cuid().optional() }),
+    )
     .query(async ({ ctx, input }) => {
-      const project = await ctx.db.project.findUniqueOrThrow({
+      const project = await ctx.db.project.findUnique({
         where: {
           id: input.projectId,
+          createdByUserId: input.userId,
         },
         include: {
           createdBy: {
@@ -28,6 +33,12 @@ export const projectRouter = createTRPCRouter({
           },
         },
       });
+
+      if (!project)
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Project Not Found !",
+        });
 
       return project ?? null;
     }),
@@ -74,6 +85,16 @@ export const projectRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const { projectId, userId } = input;
+
+      const project = await ctx.db.project.findUnique({
+        where: { id: projectId, createdByUserId: userId },
+      });
+
+      if (!project)
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Project not Found !",
+        });
 
       return ctx.db.project.delete({
         where: { id: projectId, createdByUserId: userId },
