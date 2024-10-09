@@ -66,7 +66,7 @@ For deployment, you can follow the guides for:
 ## To-do
 
 - [ ] Add project image
-- [ ] Filter projects by name and/or TechStack
+- [x] Filter projects by name and/or TechStack
 - [x] Add toast infos (such as success or error)
 - [x] Edit Project
 
